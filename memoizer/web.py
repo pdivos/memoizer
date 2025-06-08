@@ -7,7 +7,7 @@ from .context import current_asof
 import io
 from typing import Callable
 from enum import Enum
-Endpoint = Enum("Endpoint", ["eval", "lates", "download_csv"])
+Endpoint = Enum("Endpoint", ["eval", "latest", "download_csv"])
 
 def construct_url(f: Callable, *args, **kwargs) -> str:
     return _node_id_to_url(Endpoint.latest, NodeId.from_call(current_asof(), f, *args, **kwargs))
