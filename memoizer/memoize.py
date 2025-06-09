@@ -25,6 +25,14 @@ def blow_cache(memoized: Callable, *args, **kwargs):
     if cache.contains(node_id):
         cache.remove(node_id)
 
+def node_fname(f: Callable, *args, **kwargs) -> str:
+    cache = current_context().cache
+    asof = current_context().asof
+    call_id = CallId.from_call(f, *args, **kwargs)
+    node_id = NodeId.from_call_id_and_asof(call_id, asof)
+    assert type(cache) is FileCache
+    return _href_eval(cache, node_id)
+
 def _eval_cached(f, *args, **kwargs):
     cache = current_context().cache
     asof = current_context().asof
